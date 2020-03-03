@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on leerogram</title>
+    <link>https://leerograming.github.io/tags/</link>
+    <description>Recent content in Tags on leerogram</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Tue, 03 Mar 2020 21:16:53 +0900</lastBuildDate>
+    
+	<atom:link href="https://leerograming.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>annotation</title>
+      <link>https://leerograming.github.io/tags/annotation/</link>
+      <pubDate>Tue, 03 Mar 2020 21:16:53 +0900</pubDate>
+      
+      <guid>https://leerograming.github.io/tags/annotation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>spring</title>
+      <link>https://leerograming.github.io/tags/spring/</link>
+      <pubDate>Tue, 03 Mar 2020 21:16:53 +0900</pubDate>
+      
+      <guid>https://leerograming.github.io/tags/spring/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

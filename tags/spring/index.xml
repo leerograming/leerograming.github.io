@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>spring on leerogram</title>
+    <link>https://leerograming.github.io/tags/spring/</link>
+    <description>Recent content in spring on leerogram</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Tue, 03 Mar 2020 21:16:53 +0900</lastBuildDate>
+    
+	<atom:link href="https://leerograming.github.io/tags/spring/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>@Bean과 @Component</title>
+      <link>https://leerograming.github.io/posts/bean%EA%B3%BC-component/</link>
+      <pubDate>Tue, 03 Mar 2020 21:16:53 +0900</pubDate>
+      
+      <guid>https://leerograming.github.io/posts/bean%EA%B3%BC-component/</guid>
+      <description>@Bean
+ 개발자가 컨트롤이 불가능한 외부 라이브러리를 bean으로 등록 bean으로 등록되는 객체를 리턴해야 한다. Method level 어노테이션  @Component
+ 개발자가 컨트롤이 가능한 Class를 bean으로 등록 class level 어노테이션 classpath scanning  추가) scanning을 통한 bean 등록이 궁금하면 springframwork.context.annotation의 classpathscanningcandidatecomponentprovider.scanCandidateComponents(String basePackage) 참고하기(springboot 2.2.2 기준)</description>
+    </item>
+    
+  </channel>
+</rss>

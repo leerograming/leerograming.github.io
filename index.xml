@@ -12,12 +12,20 @@
     
     
     <item>
-      <title>About me</title>
+      <title></title>
       <link>https://leerograming.github.io/about/</link>
       <pubDate>Thu, 09 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>https://leerograming.github.io/about/</guid>
-      <description>Hugo is the world’s fastest framework for building websites. It is written in Go.</description>
+      <description>About Me화목한 가정에서 1남 1녀 장남으로 태어난31세 3년차 front-end 개발자. 3년차가 지녀야 할 역량이 무엇인지 한참 고민중
+현재 공부중 : React, spring-Security
+Major Career- puzzle game app NatureCube 출시 (gamesalad)
+- kh정보교육원 응용SW엔지니어 및 DB엔지니어 양성과정 이수
+- TOBESOFT 입사
+- 동행복권 통계화면 시스템 UI &amp; 서비스 개발
+- 롯데건설 차세대 erp 시스템 UI 공통 개발
+- 한국과학기술기획평가원 과제관리 시스템 POC 수행
+- SKTNS 공정관리 시스템 POC 수행</description>
     </item>
     
     <item>

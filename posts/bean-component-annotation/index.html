@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://leerograming.github.io/css/bootstrap.min.css">
   
   
-  <title>UsernamePasswordAuthenticationFilter | Daily-Develog</title>
+  <title>@Bean &amp; @Component Annotation | Daily-Develog</title>
   <style>
 .container {
   max-width: 700px;
@@ -156,27 +156,20 @@ audio {
       <main id="main">
         
 
-<h1>UsernamePasswordAuthenticationFilter</h1>
-<ol>
-<li>
-<p>UsernamePasswordAuthenticationFilter의 attemptAuthentication 메소드에서 authenticationManager.authenticate(authenticationToken)를 호출.(authenticationManager 구현체인 ProviderManager의 authenticate()가 호출된다)
-<script type="application/javascript" src="https://gist.github.com/leerograming/9b2caed87d1c64e5b4e704a03a244bc0.js"></script>
-</p>
-</li>
-<li>
-<p>ProviderManager의 authenticate() 에서 하나, 혹은 그 이상의 AuthenticationProvider를 호출(특별한 설정이 없다면 DaoAuthenticationProvider 호출)
-<script type="application/javascript" src="https://gist.github.com/leerograming/344bd98a46741082ac1eba2b1c578a62.js"></script>
-</p>
-</li>
-<li>
-<p>DaoAuthenticationProvider retrieveUser() 메소드에서 UserDetailService의 loadUserByUsername() 호출</p>
-</li>
-<li>
-<p>retrieveUser()에서 return 받은 UserDetails 객체와 authenticationToken 값을 additionalAuthenticationChecks()에서 비교(여기서 비밀번호 검증이 이루어진다.)
-<script type="application/javascript" src="https://gist.github.com/leerograming/626785c59db9bd6fda96d0dd41f81f84.js"></script>
-</p>
-</li>
-</ol>
+<h1>@Bean &amp; @Component Annotation</h1>
+<p>@Bean</p>
+<ul>
+<li>개발자가 컨트롤이 <strong>불가능한 외부 라이브러리</strong>를 bean으로 등록</li>
+<li>bean으로 등록되는 객체를 리턴해야 한다.</li>
+<li><strong>Method level 어노테이션</strong></li>
+</ul>
+<p>@Component</p>
+<ul>
+<li>개발자가 <strong>컨트롤이 가능한 Class</strong>를 bean으로 등록</li>
+<li><strong>Class level 어노테이션</strong></li>
+<li>classpath scanning</li>
+</ul>
+<p>추가) scanning을 통한 bean 등록이 궁금하면 springframwork.context.annotation의 <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/ClassPathScanningCandidateComponentProvider.html">classpathscanningcandidatecomponentprovider.scanCandidateComponents</a> 참고하기(springboot 2.2.2 기준)</p>
 
 
 

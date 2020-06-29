@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>spring security on leerogram</title>
+    <title>spring security on Daily-Develog</title>
     <link>https://leerograming.github.io/tags/spring-security/</link>
-    <description>Recent content in spring security on leerogram</description>
+    <description>Recent content in spring security on Daily-Develog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     <lastBuildDate>Mon, 09 Mar 2020 15:31:53 +0900</lastBuildDate>
     
 	<atom:link href="https://leerograming.github.io/tags/spring-security/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>UsernamePasswordAuthenticationFilter 비밀번호 검증 순서</title>
+      <title>UsernamePasswordAuthenticationFilter</title>
       <link>https://leerograming.github.io/posts/usernamepasswordauthenticationfilter/</link>
       <pubDate>Mon, 09 Mar 2020 15:31:53 +0900</pubDate>
       
       <guid>https://leerograming.github.io/posts/usernamepasswordauthenticationfilter/</guid>
-      <description>  UsernamePasswordAuthenticationFilter의 attemptAuthentication 메소드에서 authenticationManager.authenticate(authenticationToken)를 호출(authenticationManager 구현체인 ProviderManager의 authenticate()가 호출된다.)    ProviderManager의 authenticate() 에서 하나, 혹은 그 이상의 AuthenticationProvider를 호출(특별한 설정이 없다면 DaoAuthenticationProvider 호출)    DaoAuthenticationProvider retrieveUser() 메소드에서 UserDetailService의 loadUserByUsername() 호출
+      <description>  UsernamePasswordAuthenticationFilter의 attemptAuthentication 메소드에서 authenticationManager.authenticate(authenticationToken)를 호출.(authenticationManager 구현체인 ProviderManager의 authenticate()가 호출된다)    ProviderManager의 authenticate() 에서 하나, 혹은 그 이상의 AuthenticationProvider를 호출(특별한 설정이 없다면 DaoAuthenticationProvider 호출)    DaoAuthenticationProvider retrieveUser() 메소드에서 UserDetailService의 loadUserByUsername() 호출
   retrieveUser()에서 return 받은 UserDetails 객체와 authenticationToken 값을 additionalAuthenticationChecks()에서 비교(여기서 비밀번호 검증이 이루어진다.)    </description>
     </item>
     

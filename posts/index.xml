@@ -1,69 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-	<channel>
-		<title>Posts on leerogram</title>
-		<link>https://leerograming.github.io/posts/</link>
-		<description>Recent content in Posts on leerogram</description>
-		<generator>Hugo -- gohugo.io</generator>
-		<language>ko-kr</language>
-		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Mon, 09 Mar 2020 15:31:53 +0900</lastBuildDate>
-		<atom:link href="https://leerograming.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-		
-		<item>
-			<title>UsernamePasswordAuthenticationFilter 비밀번호 검증 순서</title>
-			<link>https://leerograming.github.io/posts/usernamepasswordauthenticationfilter/</link>
-			<pubDate>Mon, 09 Mar 2020 15:31:53 +0900</pubDate>
-			
-			<guid>https://leerograming.github.io/posts/usernamepasswordauthenticationfilter/</guid>
-			<description>  UsernamePasswordAuthenticationFilter의 attemptAuthentication 메소드에서 authenticationManager.authenticate(authenticationToken)를 호출(authenticationManager 구현체인 ProviderManager의 authenticate()가 호출된다.)    ProviderManager의 authenticate() 에서 하나, 혹은 그 이상의 AuthenticationProvider를 호출(특별한 설정이 없다면 DaoAuthenticationProvider 호출)    DaoAuthenticationProvider retrieveUser() 메소드에서 UserDetailService의 loadUserByUsername() 호출
+  <channel>
+    <title>Posts on Daily-Develog</title>
+    <link>https://leerograming.github.io/posts/</link>
+    <description>Recent content in Posts on Daily-Develog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Mon, 09 Mar 2020 15:31:53 +0900</lastBuildDate>
+    
+	<atom:link href="https://leerograming.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>UsernamePasswordAuthenticationFilter</title>
+      <link>https://leerograming.github.io/posts/usernamepasswordauthenticationfilter/</link>
+      <pubDate>Mon, 09 Mar 2020 15:31:53 +0900</pubDate>
+      
+      <guid>https://leerograming.github.io/posts/usernamepasswordauthenticationfilter/</guid>
+      <description>  UsernamePasswordAuthenticationFilter의 attemptAuthentication 메소드에서 authenticationManager.authenticate(authenticationToken)를 호출.(authenticationManager 구현체인 ProviderManager의 authenticate()가 호출된다)    ProviderManager의 authenticate() 에서 하나, 혹은 그 이상의 AuthenticationProvider를 호출(특별한 설정이 없다면 DaoAuthenticationProvider 호출)    DaoAuthenticationProvider retrieveUser() 메소드에서 UserDetailService의 loadUserByUsername() 호출
   retrieveUser()에서 return 받은 UserDetails 객체와 authenticationToken 값을 additionalAuthenticationChecks()에서 비교(여기서 비밀번호 검증이 이루어진다.)    </description>
-			<content type="html"><![CDATA[<ol>
-<li>
-<p>UsernamePasswordAuthenticationFilter의 attemptAuthentication 메소드에서 authenticationManager.authenticate(authenticationToken)를 호출(authenticationManager 구현체인 ProviderManager의 authenticate()가 호출된다.)
-<script type="application/javascript" src="https://gist.github.com/leerograming/9b2caed87d1c64e5b4e704a03a244bc0.js"></script>
-</p>
-</li>
-<li>
-<p>ProviderManager의 authenticate() 에서 하나, 혹은 그 이상의 AuthenticationProvider를 호출(특별한 설정이 없다면 DaoAuthenticationProvider 호출)
-<script type="application/javascript" src="https://gist.github.com/leerograming/344bd98a46741082ac1eba2b1c578a62.js"></script>
-</p>
-</li>
-<li>
-<p>DaoAuthenticationProvider retrieveUser() 메소드에서 UserDetailService의 loadUserByUsername() 호출</p>
-</li>
-<li>
-<p>retrieveUser()에서 return 받은 UserDetails 객체와 authenticationToken 값을 additionalAuthenticationChecks()에서 비교(여기서 비밀번호 검증이 이루어진다.)
-<script type="application/javascript" src="https://gist.github.com/leerograming/626785c59db9bd6fda96d0dd41f81f84.js"></script>
-</p>
-</li>
-</ol>
-]]></content>
-		</item>
-		
-		<item>
-			<title>@Bean과 @Component</title>
-			<link>https://leerograming.github.io/posts/bean%EA%B3%BC-component/</link>
-			<pubDate>Tue, 03 Mar 2020 21:16:53 +0900</pubDate>
-			
-			<guid>https://leerograming.github.io/posts/bean%EA%B3%BC-component/</guid>
-			<description>@Bean
+    </item>
+    
+    <item>
+      <title>@Bean &amp; @Component Annotation</title>
+      <link>https://leerograming.github.io/posts/bean-component-annotation/</link>
+      <pubDate>Tue, 03 Mar 2020 21:16:53 +0900</pubDate>
+      
+      <guid>https://leerograming.github.io/posts/bean-component-annotation/</guid>
+      <description>@Bean
  개발자가 컨트롤이 불가능한 외부 라이브러리를 bean으로 등록 bean으로 등록되는 객체를 리턴해야 한다. Method level 어노테이션  @Component
- 개발자가 컨트롤이 가능한 Class를 bean으로 등록 class level 어노테이션 classpath scanning  추가) scanning을 통한 bean 등록이 궁금하면 springframwork.context.annotation의 classpathscanningcandidatecomponentprovider.scanCandidateComponents(String basePackage) 참고하기(springboot 2.2.2 기준)</description>
-			<content type="html"><![CDATA[<p>@Bean</p>
-<ul>
-<li>개발자가 컨트롤이 <!-- raw HTML omitted -->불가능한 외부 라이브러리<!-- raw HTML omitted -->를 bean으로 등록</li>
-<li>bean으로 등록되는 객체를 리턴해야 한다.</li>
-<li>Method level 어노테이션</li>
-</ul>
-<p>@Component</p>
-<ul>
-<li>개발자가 <!-- raw HTML omitted -->컨트롤이 가능한 Class<!-- raw HTML omitted -->를 bean으로 등록</li>
-<li>class level 어노테이션</li>
-<li>classpath scanning</li>
-</ul>
-<p>추가) scanning을 통한 bean 등록이 궁금하면 springframwork.context.annotation의 classpathscanningcandidatecomponentprovider.scanCandidateComponents(String basePackage) 참고하기(springboot 2.2.2 기준)</p>
-]]></content>
-		</item>
-		
-	</channel>
+ 개발자가 컨트롤이 가능한 Class를 bean으로 등록 Class level 어노테이션 classpath scanning  추가) scanning을 통한 bean 등록이 궁금하면 springframwork.context.annotation의 classpathscanningcandidatecomponentprovider.scanCandidateComponents 참고하기(springboot 2.2.2 기준)</description>
+    </item>
+    
+  </channel>
 </rss>

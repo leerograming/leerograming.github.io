@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://leerograming.github.io/css/bootstrap.min.css">
   
   
-  <title>UsernamePasswordAuthenticationFilter | Daily-Develog</title>
+  <title>About me | Daily-Develog</title>
   <style>
 .container {
   max-width: 700px;
@@ -156,27 +156,9 @@ audio {
       <main id="main">
         
 
-<h1>UsernamePasswordAuthenticationFilter</h1>
-<ol>
-<li>
-<p>UsernamePasswordAuthenticationFilter의 attemptAuthentication 메소드에서 authenticationManager.authenticate(authenticationToken)를 호출.(authenticationManager 구현체인 ProviderManager의 authenticate()가 호출된다)
-<script type="application/javascript" src="https://gist.github.com/leerograming/9b2caed87d1c64e5b4e704a03a244bc0.js"></script>
-</p>
-</li>
-<li>
-<p>ProviderManager의 authenticate() 에서 하나, 혹은 그 이상의 AuthenticationProvider를 호출(특별한 설정이 없다면 DaoAuthenticationProvider 호출)
-<script type="application/javascript" src="https://gist.github.com/leerograming/344bd98a46741082ac1eba2b1c578a62.js"></script>
-</p>
-</li>
-<li>
-<p>DaoAuthenticationProvider retrieveUser() 메소드에서 UserDetailService의 loadUserByUsername() 호출</p>
-</li>
-<li>
-<p>retrieveUser()에서 return 받은 UserDetails 객체와 authenticationToken 값을 additionalAuthenticationChecks()에서 비교(여기서 비밀번호 검증이 이루어진다.)
-<script type="application/javascript" src="https://gist.github.com/leerograming/626785c59db9bd6fda96d0dd41f81f84.js"></script>
-</p>
-</li>
-</ol>
+<h1>About me</h1>
+<img src="../img/img_about.jpg"  width="100" height="100">
+<p>Hugo is the <strong>world’s fastest framework for building websites</strong>. It is written in Go.</p>
 
 
 

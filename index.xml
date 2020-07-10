@@ -12,20 +12,31 @@
     
     
     <item>
+      <title>Driver does not support get/set network timeout for connections</title>
+      <link>https://leerograming.github.io/posts/driver-does-not-support-getset-network-timeout-for-connections/</link>
+      <pubDate>Fri, 10 Jul 2020 15:20:47 +0900</pubDate>
+      
+      <guid>https://leerograming.github.io/posts/driver-does-not-support-getset-network-timeout-for-connections/</guid>
+      <description>nexacro 연동 BMT 프로젝트를 개발하다가 HikariPool-1 - Driver does not support get/set network timeout for connections.(oracle.jdbc.driver.T4CConnection.getNetworkTimeout()I) 라는 log를 발견함. Info level이라 별 문제는 없을 것 같아도 신경쓰여서 원인과 해결법을 찾아보게 되었다.
+ 프로젝트 환경  spring-boot 2.1.3 Oracle Database 10g 10.2.0.1 ojdbc6 11.2.0.3     원인
+디버깅을 해서 해당 log가 찍히는 곳을 따라가보니 HikariCP의 PoolBase.class[출처] 내부 getAndSetNetworkTimeout()였다. 아래의 코드 5번 째 줄에 connection에서 getNetworkTimeout() 메소드를 호출하지 못해서 exception이 발생, log가 찍히는 것이었다.</description>
+    </item>
+    
+    <item>
       <title></title>
       <link>https://leerograming.github.io/about/</link>
       <pubDate>Thu, 09 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>https://leerograming.github.io/about/</guid>
-      <description>About Me화목한 가정에서 1남 1녀 장남으로 태어난31세 3년차 front-end 개발자. 3년차가 지녀야 할 역량이 무엇인지 한참 고민중
-현재 공부중 : React, spring-Security
-Major Career- puzzle game app NatureCube 출시 (gamesalad)
+      <description>About Me화목한 가정에서 1남 1녀 장남으로 태어난31세 3년차 front-end 개발자. Major Career- puzzle game app NatureCube 출시 (gamesalad)
 - kh정보교육원 응용SW엔지니어 및 DB엔지니어 양성과정 이수
 - TOBESOFT 입사
 - 동행복권 통계화면 시스템 UI &amp; 서비스 개발
 - 롯데건설 차세대 erp 시스템 UI 공통 개발
 - 한국과학기술기획평가원 과제관리 시스템 POC 수행
-- SKTNS 공정관리 시스템 POC 수행</description>
+- SKTNS 공정관리 시스템 POC 수행
+- 삼성전자 G-MES 4.0 Mobile POC 수행
+- 보건복지부 차세대 사회보장통합시스템 TTA BMT 수행</description>
     </item>
     
     <item>
@@ -35,7 +46,7 @@
       
       <guid>https://leerograming.github.io/posts/usernamepasswordauthenticationfilter/</guid>
       <description>  UsernamePasswordAuthenticationFilter의 attemptAuthentication 메소드에서 authenticationManager.authenticate(authenticationToken)를 호출.(authenticationManager 구현체인 ProviderManager의 authenticate()가 호출된다)    ProviderManager의 authenticate() 에서 하나, 혹은 그 이상의 AuthenticationProvider를 호출(특별한 설정이 없다면 DaoAuthenticationProvider 호출)    DaoAuthenticationProvider retrieveUser() 메소드에서 UserDetailService의 loadUserByUsername() 호출
-  retrieveUser()에서 return 받은 UserDetails 객체와 authenticationToken 값을 additionalAuthenticationChecks()에서 비교(여기서 비밀번호 검증이 이루어진다.)    </description>
+  retrieveUser()에서 return 받은 UserDetails 객체와 authenticationToken 값을 additionalAuthenticationChecks()에서 비교(여기서 비밀번호 검증이 이루어진다.)       </description>
     </item>
     
     <item>
@@ -46,7 +57,8 @@
       <guid>https://leerograming.github.io/posts/bean-component-annotation/</guid>
       <description>@Bean
  개발자가 컨트롤이 불가능한 외부 라이브러리를 bean으로 등록 bean으로 등록되는 객체를 리턴해야 한다. Method level 어노테이션  @Component
- 개발자가 컨트롤이 가능한 Class를 bean으로 등록 Class level 어노테이션 classpath scanning  추가) scanning을 통한 bean 등록이 궁금하면 springframwork.context.annotation의 classpathscanningcandidatecomponentprovider.scanCandidateComponents 참고하기(springboot 2.2.2 기준)</description>
+ 개발자가 컨트롤이 가능한 Class를 bean으로 등록 Class level 어노테이션 classpath scanning  추가) scanning을 통한 bean 등록이 궁금하면 springframwork.context.annotation의 classpathscanningcandidatecomponentprovider.scanCandidateComponents 참고하기(springboot 2.2.2 기준)
+  </description>
     </item>
     
   </channel>

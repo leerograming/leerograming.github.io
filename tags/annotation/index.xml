@@ -19,7 +19,8 @@
       <guid>https://leerograming.github.io/posts/bean-component-annotation/</guid>
       <description>@Bean
  개발자가 컨트롤이 불가능한 외부 라이브러리를 bean으로 등록 bean으로 등록되는 객체를 리턴해야 한다. Method level 어노테이션  @Component
- 개발자가 컨트롤이 가능한 Class를 bean으로 등록 Class level 어노테이션 classpath scanning  추가) scanning을 통한 bean 등록이 궁금하면 springframwork.context.annotation의 classpathscanningcandidatecomponentprovider.scanCandidateComponents 참고하기(springboot 2.2.2 기준)</description>
+ 개발자가 컨트롤이 가능한 Class를 bean으로 등록 Class level 어노테이션 classpath scanning  추가) scanning을 통한 bean 등록이 궁금하면 springframwork.context.annotation의 classpathscanningcandidatecomponentprovider.scanCandidateComponents 참고하기(springboot 2.2.2 기준)
+  </description>
     </item>
     
   </channel>

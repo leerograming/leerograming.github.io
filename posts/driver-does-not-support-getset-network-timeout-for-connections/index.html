@@ -1,0 +1,319 @@
+<!doctype html>
+
+<html lang="en-us" class="h-100">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="generator" content="Hugo 0.65.3" />
+  <link rel="stylesheet" href="https://leerograming.github.io/css/bootstrap.min.css">
+  
+  
+  <title>Driver does not support get/set network timeout for connections | Daily-Develog</title>
+  <style>
+.container {
+  max-width: 700px;
+}
+#nav a {
+  font-weight: bold;
+  color: inherit;
+}
+#nav a.nav-link-active {
+  background-color: #212529;
+  color: #fff;
+}
+#nav-border {
+  border-bottom: 1px solid #212529;
+}
+#main {
+  margin-top: 1em;
+  margin-bottom: 4em;
+}
+#home-jumbotron {
+  background-color: inherit;
+}
+#footer .container {
+  padding: 1em 0;
+}
+#footer a {
+  color: inherit;
+  text-decoration: underline;
+}
+.font-125 {
+  font-size: 125%;
+}
+.tag-btn {
+  margin-bottom: 0.3em;
+}
+pre {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 16px;
+}
+pre code {
+  padding: 0;
+  font-size: inherit;
+  color: inherit; 
+  background-color: transparent;
+  border-radius: 0;
+}
+code {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #c7254e;
+  background-color: #f9f2f4;
+  border-radius: 4px;
+}
+img,
+iframe,
+embed,
+video,
+audio {
+  max-width: 100%;
+}
+.card-img,
+.card-img-top,
+.card-img-bottom {
+  width: initial;
+}
+</style>
+</head>
+  <body class="d-flex flex-column h-100">
+    <div id="nav-border" class="container">
+  <nav id="nav" class="nav justify-content-center">
+  
+  
+  
+    
+    
+      
+      
+      
+      
+      
+        
+      
+    
+    
+    <a class="nav-link " href="/"><i data-feather="home"></i> Home</a>
+  
+    
+    
+      
+      
+      
+      
+      
+        
+      
+    
+    
+    <a class="nav-link " href="/posts/"><i data-feather="edit"></i> Posts</a>
+  
+    
+    
+      
+      
+      
+      
+      
+        
+      
+    
+    
+    <a class="nav-link " href="/tags/"><i data-feather="tag"></i> Tags</a>
+  
+    
+    
+      
+      
+      
+      
+      
+        
+      
+    
+    
+    <a class="nav-link " href="/about/"><i data-feather="smile"></i> About</a>
+  
+    
+    
+      
+      
+      
+      
+      
+        
+      
+    
+    
+    <a class="nav-link " href="/index.xml"><i data-feather="rss"></i> RSS</a>
+  
+  </nav>
+</div>
+
+    <div class="container">
+      <main id="main">
+        
+
+<h1>Driver does not support get/set network timeout for connections</h1>
+<p>nexacro 연동 BMT 프로젝트를 개발하다가 <blockquote style="border-left:3px solid #3d3d3d; margin:0 0 24px; padding:10px 20px; font-size:15px; font-weight:bold;">HikariPool-1 - Driver does not support get/set network timeout for connections.(oracle.jdbc.driver.T4CConnection.getNetworkTimeout()I)</blockquote> 라는 log를 발견함.
+Info level이라 별 문제는 없을 것 같아도 신경쓰여서 원인과 해결법을 찾아보게 되었다.</p>
+<ul>
+<li><strong>프로젝트 환경</strong>
+<ul>
+<li>spring-boot 2.1.3</li>
+<li>Oracle Database 10g 10.2.0.1</li>
+<li>ojdbc6 11.2.0.3</li>
+</ul>
+</li>
+</ul>
+<br>
+<br>
+<ul>
+<li><strong>원인</strong><br>
+디버깅을 해서 해당 log가 찍히는 곳을 따라가보니 HikariCP의 PoolBase.class<sup><a href="#각주1">[출처]</a></sup> 내부 getAndSetNetworkTimeout()였다.
+아래의 코드 5번 째 줄에 connection에서 getNetworkTimeout() 메소드를 호출하지 못해서 exception이 발생, log가 찍히는 것이었다.</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getAndSetNetworkTimeout</span><span style="color:#f92672">(</span><span style="color:#66d9ef">final</span> Connection connection<span style="color:#f92672">,</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">long</span> timeoutMs<span style="color:#f92672">)</span>
+<span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>isNetworkTimeoutSupported <span style="color:#f92672">!=</span> FALSE<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+      <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> originalTimeout <span style="color:#f92672">=</span> connection<span style="color:#f92672">.</span><span style="color:#a6e22e">getNetworkTimeout</span><span style="color:#f92672">();</span>
+        connection<span style="color:#f92672">.</span><span style="color:#a6e22e">setNetworkTimeout</span><span style="color:#f92672">(</span>netTimeoutExecutor<span style="color:#f92672">,</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">)</span> timeoutMs<span style="color:#f92672">);</span>
+        isNetworkTimeoutSupported <span style="color:#f92672">=</span> TRUE<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">return</span> originalTimeout<span style="color:#f92672">;</span>
+      <span style="color:#f92672">}</span>
+      <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>Throwable e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>isNetworkTimeoutSupported <span style="color:#f92672">==</span> UNINITIALIZED<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            isNetworkTimeoutSupported <span style="color:#f92672">=</span> FALSE<span style="color:#f92672">;</span>
+
+            LOGGER<span style="color:#f92672">.</span><span style="color:#a6e22e">info</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;{} - Driver does not support get/set network timeout for connections. ({})&#34;</span><span style="color:#f92672">,</span> poolName<span style="color:#f92672">,</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">());</span>
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>validationTimeout <span style="color:#f92672">&lt;</span> SECONDS<span style="color:#f92672">.</span><span style="color:#a6e22e">toMillis</span><span style="color:#f92672">(</span>1<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+              LOGGER<span style="color:#f92672">.</span><span style="color:#a6e22e">warn</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;{} - A validationTimeout of less than 1 second cannot be honored on drivers without setNetworkTimeout() support.&#34;</span><span style="color:#f92672">,</span> poolName<span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>validationTimeout <span style="color:#f92672">%</span> SECONDS<span style="color:#f92672">.</span><span style="color:#a6e22e">toMillis</span><span style="color:#f92672">(</span>1<span style="color:#f92672">)</span> <span style="color:#f92672">!=</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+              LOGGER<span style="color:#f92672">.</span><span style="color:#a6e22e">warn</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;{} - A validationTimeout with fractional second granularity cannot be honored on drivers without setNetworkTimeout() support.&#34;</span><span style="color:#f92672">,</span> poolName<span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+      <span style="color:#f92672">}</span>
+  <span style="color:#f92672">}</span>
+
+  <span style="color:#66d9ef">return</span> 0<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><ul>
+<li><strong>해결책</strong><br>
+<strong>ojdbc6은 getNetworkTimeout method를 지원하지 않아서 버전을 7로 변경</strong>했더니 간단하게 해결되었다.<br>
+※ <em>ojdbc를 바꿀 수 없는 경우였다면  Hibernate의 dialect class인 Oracle10gDialect를 상속받아 구현했을 것.</em></li>
+</ul>
+<br>
+<br>
+<ul>
+<li>
+<p><strong>추가 사항</strong><br>
+해당 프로젝트의 application.properies에 실수로 DiverClassName을 명시하지 않았는데 정상적으로 dataSource가 생성되었다.
+당연히 에러가 생길 줄 알았는데 정상적으로 실행이 되어서 <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-sql">Spring-boot Docs</a>
+를 찾아보았더니 아래의 내용이 있었다.</p>
+<blockquote style="border-left:3px solid #3d3d3d; margin:0 0 24px; padding:10px 20px; font-size:15px; font-weight:bold;">
+  You often do not need to specify the driver-class-name, since Spring Boot can deduce it for most databases from the url.</blockquote>
+  즉, 스프링부트가 URL에서 DriverClassName을 뽑아낼 수 있다는 의미이다.(그래도 웬만하면 명시를 해주는게 좋을 듯 하다)
+  실제 구현은 Springboo autoconfigure 패키지의 DataSourceProperties<sup><a href="#각주2">[출처]</a></sup>의 determineDriverClassName() 에서 이루어진다.
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">determineDriverClassName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>StringUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">hasText</span><span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">driverClassName</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+			Assert<span style="color:#f92672">.</span><span style="color:#a6e22e">state</span><span style="color:#f92672">(</span>driverClassIsLoadable<span style="color:#f92672">(),</span>
+					<span style="color:#f92672">()</span> <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">&#34;Cannot load driver class: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">driverClassName</span><span style="color:#f92672">);</span>
+			<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">driverClassName</span><span style="color:#f92672">;</span>
+		<span style="color:#f92672">}</span>
+		String driverClassName <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+		<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>StringUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">hasText</span><span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">url</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+		 	driverClassName <span style="color:#f92672">=</span> DatabaseDriver<span style="color:#f92672">.</span><span style="color:#a6e22e">fromJdbcUrl</span><span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">url</span><span style="color:#f92672">).</span><span style="color:#a6e22e">getDriverClassName</span><span style="color:#f92672">();</span>
+		<span style="color:#f92672">}</span>
+		<span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>StringUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">hasText</span><span style="color:#f92672">(</span>driverClassName<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+			driverClassName <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">embeddedDatabaseConnection</span><span style="color:#f92672">.</span><span style="color:#a6e22e">getDriverClassName</span><span style="color:#f92672">();</span>
+		<span style="color:#f92672">}</span>
+		<span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>StringUtils<span style="color:#f92672">.</span><span style="color:#a6e22e">hasText</span><span style="color:#f92672">(</span>driverClassName<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+			<span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> DataSourceBeanCreationException<span style="color:#f92672">(</span>
+					<span style="color:#e6db74">&#34;Failed to determine a suitable driver class&#34;</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">,</span>
+					<span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">embeddedDatabaseConnection</span><span style="color:#f92672">);</span>
+		<span style="color:#f92672">}</span>
+		<span style="color:#66d9ef">return</span> driverClassName<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><br>
+<br>
+<p>-참고 및 출처</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/53940321/how-to-fix-driver-does-not-support-get-set-network-timeout-for-connections-whi/54906333#54906333">stackoverflow</a></li>
+<li><a id="각주1"><a href="https://github.com/brettwooldridge/HikariCP/blob/dev/src/main/java/com/zaxxer/hikari/pool/PoolBase.java">poolBase</a></a></li>
+<li><a id="각주2"><a href="https://github.com/spring-projects/spring-boot/blob/v2.3.1.RELEASE/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/jdbc/DataSourceProperties.java">DataSourceProperties</a></a></li>
+</ul>
+<hr>
+<script src="https://utteranc.es/client.js"
+        repo="leerograming/leerograming-comment"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+      </main>
+    </div>
+    
+<footer id="footer" class="mt-auto text-center text-muted">
+  <div class="container">
+    Made with <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/zwbetz-gh/vanilla-bootstrap-hugo-theme">Vanilla</a> &amp; <a href="https://github.com/leerograming">Me</a>
+  </div>
+</footer>
+
+
+
+    <script src="https://leerograming.github.io/js/feather.min.js"></script>
+<script>
+  feather.replace()
+</script>
+
+
+    
+
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq"
+  crossorigin="anonymous"
+/>
+
+
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz"
+  crossorigin="anonymous"
+></script>
+
+
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
+  crossorigin="anonymous"
+  onload="renderMathInElement(document.body);"
+></script>
+
+
+    
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E053FKFPFF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-E053FKFPFF');
+    </script>
+  
+
+  </body>
+</html>

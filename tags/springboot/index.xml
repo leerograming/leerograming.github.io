@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SpringBoot on Daily-Develog</title>
+    <link>https://leerograming.github.io/tags/springboot/</link>
+    <description>Recent content in SpringBoot on Daily-Develog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Fri, 10 Jul 2020 15:20:47 +0900</lastBuildDate>
+    
+	<atom:link href="https://leerograming.github.io/tags/springboot/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Driver does not support get/set network timeout for connections</title>
+      <link>https://leerograming.github.io/posts/driver-does-not-support-getset-network-timeout-for-connections/</link>
+      <pubDate>Fri, 10 Jul 2020 15:20:47 +0900</pubDate>
+      
+      <guid>https://leerograming.github.io/posts/driver-does-not-support-getset-network-timeout-for-connections/</guid>
+      <description>nexacro 연동 BMT 프로젝트를 개발하다가 HikariPool-1 - Driver does not support get/set network timeout for connections.(oracle.jdbc.driver.T4CConnection.getNetworkTimeout()I) 라는 log를 발견함. Info level이라 별 문제는 없을 것 같아도 신경쓰여서 원인과 해결법을 찾아보게 되었다.
+ 프로젝트 환경  spring-boot 2.1.3 Oracle Database 10g 10.2.0.1 ojdbc6 11.2.0.3     원인
+디버깅을 해서 해당 log가 찍히는 곳을 따라가보니 HikariCP의 PoolBase.class[출처] 내부 getAndSetNetworkTimeout()였다. 아래의 코드 5번 째 줄에 connection에서 getNetworkTimeout() 메소드를 호출하지 못해서 exception이 발생, log가 찍히는 것이었다.</description>
+    </item>
+    
+  </channel>
+</rss>
